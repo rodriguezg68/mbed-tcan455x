@@ -500,8 +500,6 @@ void TCAN455x::apply_bitrate_change(TCAN4x5x_MCAN_Nominal_Timing_Simple timing) 
 
 void TCAN455x::_tcan_irq_handler(void) {
 
-    tr_info("tcan irq handler called");
-
     /**
      * Since we can't access the SPI bus to read the interrupt source
      * during an interrupt, we can only handle one type of IRQ...
