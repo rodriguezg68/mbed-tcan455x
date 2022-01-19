@@ -465,6 +465,9 @@ int TCAN455x::filter(unsigned int id, unsigned int mask, CANFormat format,
             }
         }
 
+        // Fix the filter index to correctly index to the filter location
+        int xid_filter_index = filter_index % MBED_CONF_TCAN455X_XID_FILTER_COUNT;
+
         // Get a pointer to the filter struct
         handle_ptr = &_filtered_buffers[filter_index].xid_filter;
 
@@ -473,7 +476,7 @@ int TCAN455x::filter(unsigned int id, unsigned int mask, CANFormat format,
         handle_ptr->EFEC = TCAN4x5x_XID_EFEC_STORERX1;
         handle_ptr->EFID1 = id;
         handle_ptr->EFID2 = mask;
-        TCAN4x5x_MCAN_WriteXIDFilter(this, filter_index, handle_ptr);
+        TCAN4x5x_MCAN_WriteXIDFilter(this, xid_filter_index, handle_ptr);
         return filter_index_to_handle(filter_index);
     }
     else {
